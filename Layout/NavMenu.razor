@@ -1,0 +1,32 @@
+@using EmmanuelPortfolio.Data
+
+<header class="topbar">
+    <a href="/" class="brand-mark">Emmanuel O.</a>
+    <button class="menu-toggle"
+            type="button"
+            aria-label="@(_menuOpen ? "Close navigation" : "Open navigation")"
+            aria-expanded="@(_menuOpen ? "true" : "false")"
+            aria-controls="site-navigation"
+            @onclick="ToggleMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav id="site-navigation" class="@NavigationClass" aria-label="Main navigation">
+        @foreach (var item in SiteContent.Sections)
+        {
+            <a href="@item.Href" @onclick="CloseMenu">@item.Title</a>
+        }
+    </nav>
+    <a class="cta-button" href="/contact">Let&apos;s talk</a>
+</header>
+
+@code {
+    private bool _menuOpen;
+
+    private string NavigationClass => _menuOpen ? "main-nav is-open" : "main-nav";
+
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+
+    private void CloseMenu() => _menuOpen = false;
+}

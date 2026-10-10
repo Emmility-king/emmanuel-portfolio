@@ -1,0 +1,18 @@
+<header class="@HeaderClass">
+    <div class="route-header-inner">
+        <a href="/" class="back-link">← Back home</a>
+        <span class="route-tag">@Tag / @SiteContent.SectionNumber(Href)</span>
+    </div>
+    @ChildContent
+</header>
+
+@code {
+    [Parameter, EditorRequired] public string Href { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Tag { get; set; } = string.Empty;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string HeaderClass => string.IsNullOrWhiteSpace(Class)
+        ? "route-header"
+        : $"route-header {Class}";
+}

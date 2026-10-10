@@ -1,0 +1,17 @@
+@page "/{*Path}"
+
+<PageTitle>Page not found | @SiteContent.Name</PageTitle>
+<main class="route-shell">
+    <header class="route-header">
+        <div class="route-header-inner">
+            <a href="/" class="back-link">← Back home</a>
+            <span class="route-tag">Error / 404</span>
+        </div>
+        <h1>This page doesn&apos;t exist.</h1>
+        <p>The link may be broken or the page may have moved. Head back home to explore the rest of the portfolio.</p>
+    </header>
+</main>
+
+@code {
+    [Parameter] public string? Path { get; set; }
+}

@@ -1,0 +1,112 @@
+@page "/skills"
+
+<PageTitle>Skills | @SiteContent.Name</PageTitle>
+<HeadContent>
+    <meta name="description" content="The languages, frameworks, and tools Emmanuel Olafisoye uses to ship products." />
+</HeadContent>
+
+<main class="route-shell">
+    <RouteHeader Href="/skills" Tag="Capabilities" Class="skills-header">
+        <h1>Tools for turning ideas into working products.</h1>
+        <p>
+            My toolkit spans interface engineering, backend development, databases,
+            deployment, and digital product design.
+        </p>
+    </RouteHeader>
+    <section class="skill-route-grid">
+        @for (var index = 0; index < Categories.Length; index++)
+        {
+            var group = Categories[index];
+            <article class="skill-route-card">
+                <span class="skill-route-index">@SiteContent.Ordinal(index + 1)</span>
+                <h2>@group.Title</h2>
+                <div class="skill-icon-grid">
+                    @foreach (var skill in group.Items)
+                    {
+                        <div class="skill-icon-item">
+                            @if (skill.Icon is not null)
+                            {
+                                <span class="skill-icon" aria-hidden="true">
+                                    <img src="@($"/icons/{skill.Icon}.svg")" alt="" loading="lazy" />
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="skill-icon skill-icon-fallback" aria-hidden="true">@Initials(skill.Name)</span>
+                            }
+                            <span class="skill-icon-label">@skill.Name</span>
+                        </div>
+                    }
+                </div>
+            </article>
+        }
+    </section>
+    <p class="route-footnote">Always learning. Always improving the way I build.</p>
+</main>
+
+@code {
+    private static readonly SkillGroup[] Categories =
+    [
+        new("Frontend",
+        [
+            new("React.js", "react"),
+            new("Next.js", "nextdotjs"),
+            new("HTML5", "html5"),
+            new("CSS3", "css"),
+            new("Tailwind CSS", "tailwindcss"),
+            new("Vite.js", "vite"),
+            new("Blazor", "blazor")
+        ]),
+        new("Backend",
+        [
+            new("Node.js", "nodedotjs"),
+            new("Express.js", "express"),
+            new("Python", "python"),
+            new("C"),
+            new("REST APIs"),
+            new("Django", "django")
+        ]),
+        new("Data & platforms",
+        [
+            new("MySQL", "mysql"),
+            new("PostgreSQL", "postgresql"),
+            new("MongoDB", "mongodb"),
+            new("Moodle", "moodle"),
+            new("WordPress", "wordpress"),
+            new("Webflow", "webflow")
+        ]),
+        new("DevOps & tools",
+        [
+            new("Git", "git"),
+            new("GitHub", "github"),
+            new("Docker", "docker"),
+            new("Nginx", "nginx"),
+            new("CI/CD"),
+            new("Linux", "linux"),
+            new("AWS"),
+            new("Vercel", "vercel"),
+            new("Netlify", "netlify")
+        ]),
+        new("Mobile & design",
+        [
+            new("React Native", "react"),
+            new("Flutter", "flutter"),
+            new("Figma", "figma"),
+            new("Adobe Creative Suite")
+        ])
+    ];
+
+    private static string Initials(string name)
+    {
+        var initials = name.Split([' ', '/', '.', '-'], StringSplitOptions.RemoveEmptyEntries)
+            .Select(word => char.ToUpperInvariant(word[0]))
+            .Take(2)
+            .ToArray();
+
+        return new string(initials);
+    }
+
+    private sealed record Skill(string Name, string? Icon = null);
+
+    private sealed record SkillGroup(string Title, Skill[] Items);
+}

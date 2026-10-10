@@ -1,0 +1,76 @@
+@page "/"
+
+<PageTitle>@SiteContent.Name | @SiteContent.Role</PageTitle>
+<HeadContent>
+    <meta name="description" content="@SiteContent.Description" />
+    <meta property="og:title" content="@($"{SiteContent.Name} | {SiteContent.Role}")" />
+    <meta property="og:description" content="@SiteContent.Description" />
+    <meta property="og:image" content="/me.jpg" />
+</HeadContent>
+
+<div class="portfolio-shell">
+    <NavMenu />
+
+    <main class="home-content">
+        <section class="hero-section">
+            <div class="hero-copy">
+                <span class="eyebrow">Full Stack Engineer · Lagos, Nigeria</span>
+                <h1>I build systems that are useful, fast, and memorable.</h1>
+                <p>
+                    I&apos;m Emmanuel Olafisoye, a full stack engineer with 6+ years
+                    of experience delivering web and mobile products, secure APIs, and
+                    scalable applications.
+                </p>
+                <div class="cta-row">
+                    <a class="primary-button" href="/projects">Explore my work</a>
+                    <a class="secondary-button" href="/experience">View experience</a>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <strong>6+</strong>
+                        <span>Years building web and mobile apps</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong>Lagos</strong>
+                        <span>Open to remote and on-site roles</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="orb orb-one" aria-hidden="true"></div>
+                <div class="orb orb-two" aria-hidden="true"></div>
+                <div class="portrait-shell">
+                    <img src="/me.jpg"
+                         alt="Portrait of Emmanuel Olafisoye"
+                         width="620"
+                         height="760"
+                         fetchpriority="high" />
+                </div>
+                <div class="floating-card floating-card-top" aria-hidden="true">React · Next.js</div>
+                <div class="floating-card floating-card-bottom" aria-hidden="true">Node · APIs</div>
+            </div>
+        </section>
+
+        <section class="route-directory" aria-label="Portfolio sections">
+            <div class="directory-heading">
+                <span class="section-label">Explore</span>
+                <p>One portfolio, six different sides of my work.</p>
+            </div>
+            <div class="directory-grid">
+                @for (var index = 0; index < SiteContent.Sections.Count; index++)
+                {
+                    var item = SiteContent.Sections[index];
+                    <a class="directory-card" href="@item.Href">
+                        <span>@SiteContent.Ordinal(index + 1)</span>
+                        <div>
+                            <h2>@item.Title</h2>
+                            <p>@item.Description</p>
+                        </div>
+                        <span class="directory-arrow" aria-hidden="true">↗</span>
+                    </a>
+                }
+            </div>
+        </section>
+    </main>
+</div>

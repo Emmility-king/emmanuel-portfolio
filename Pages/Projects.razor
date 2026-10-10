@@ -1,0 +1,50 @@
+@page "/projects"
+
+<PageTitle>Projects | @SiteContent.Name</PageTitle>
+<HeadContent>
+    <meta name="description" content="Selected platforms, tools, and product ideas built by Emmanuel Olafisoye." />
+</HeadContent>
+
+<main class="route-shell">
+    <RouteHeader Href="/projects" Tag="Selected work" Class="project-route-header">
+        <h1>Projects built around real problems.</h1>
+        <p>A selection of platforms, tools, and product ideas across education, data, safety, and wellness.</p>
+    </RouteHeader>
+    <section class="project-route-grid">
+        @for (var index = 0; index < ProjectItems.Length; index++)
+        {
+            var project = ProjectItems[index];
+            <article class="project-route-card">
+                <div class="@($"project-art project-art-{project.Color}")" aria-hidden="true">
+                    <span>@SiteContent.Ordinal(index + 1)</span>
+                    <span class="project-art-mark" aria-hidden="true">✳</span>
+                </div>
+                <div class="project-route-body">
+                    <span class="project-category">@project.Category</span>
+                    <h2>@project.Title</h2>
+                    <p>@project.Description</p>
+                    <div class="project-page-stack">
+                        @foreach (var item in project.Stack)
+                        {
+                            <span>@item</span>
+                        }
+                    </div>
+                </div>
+            </article>
+        }
+    </section>
+</main>
+
+@code {
+    private static readonly Project[] ProjectItems =
+    [
+        new("Teklearn LMS", "Education technology", "A learning portal for student onboarding, course management, and exams.", ["React.js", "Node.js", "MySQL"], "coral"),
+        new("TrashPoint", "Waste management", "A digital platform built to support waste management workflows and reporting.", ["Next.js", "Node.js"], "blue"),
+        new("Churn System", "Data & analytics", "A data analytics tool for customer churn prediction and decision support.", ["Analytics", "Reporting"], "lime"),
+        new("Neurorest-ai", "AI & wellness", "A predictive cognitive AI concept focused on sleep-related insights.", ["AI", "Data"], "violet"),
+        new("Safeline", "Community safety", "Anonymous crime reporting designed to make reporting more direct and accessible.", ["Web app", "Security"], "yellow"),
+        new("CampusCare", "Campus services", "A campus complaint platform for clearer communication and issue tracking.", ["Portal", "UX"], "mint")
+    ];
+
+    private sealed record Project(string Title, string Category, string Description, string[] Stack, string Color);
+}

@@ -1,0 +1,10 @@
+{
+  "buildCommand": "dotnet publish EmmanuelPortfolio.csproj -c Release -o publish",
+  "outputDirectory": "publish/wwwroot",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
